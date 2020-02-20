@@ -1,0 +1,142 @@
+* {
+	-webkit-tap-highlight-color: transparent;
+  -webkit-overflow-scrolling: touch;
+}
+
+*::-webkit-scrollbar {
+	-webkit-appearance: none;
+	width: 8px;
+	height: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+	background-color: var(--nav);
+	border-radius: 10px;
+}
+
+html {
+	--theme-1: rgba(0, 255, 0, 0.1);
+	--theme-2: rgba(0, 255, 0, 0.2);
+	--theme-3: rgba(0, 255, 0, 0.3);
+	--theme-4: rgba(0, 255, 0, 0.4);
+	--nav: rgba(0, 0, 0, 0.2);
+	--text: rgba(0, 0, 0, 1);
+	--invert: invert(30%);
+}
+
+body {
+	overflow: auto;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+}
+
+input#dark-mode:checked, input#dark-mode:checked ~ * {
+	--theme-1: rgba(0, 0, 255, 0.1);
+	--theme-2: rgba(0, 0, 255, 0.2);
+	--theme-3: rgba(0, 0, 255, 0.3);
+	--theme-4: rgba(0, 0, 255, 0.4);
+	--nav: rgba(0, 0, 0, 0.8);
+	--text: rgba(255, 255, 255, 1);
+	--invert: invert(60%);
+}
+
+input#one-page, input#dark-mode {
+	position: fixed;
+	appearance: none;
+	-webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+	margin: 5px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	outline: unset;
+	cursor: pointer;
+	filter: var(--invert);
+}
+
+input#one-page {
+	background-image: url(assets/scroll.svg);
+	left: 0;
+}
+
+input#one-page:checked {
+	background-image: url(assets/tabs.svg);
+}
+
+input#dark-mode {
+	background-image: url(assets/moon.svg);
+	right: 0;
+}
+
+input#dark-mode:checked {
+	background-image: url(assets/sun.svg);
+}
+
+input#one-page:not(:checked) ~ .section-container section {
+	display: none;
+}
+
+input#one-page:not(:checked) ~ .section-container section:target {
+	display: block;
+}
+
+nav {
+	background-color: var(--nav);
+	display: flex;
+	justify-content: center;
+	height: 50px;
+	flex-shrink: 0;
+}
+
+nav a {
+	background-color: var(--nav);
+	display: block;
+	width: 20vw;
+	max-width: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	cursor: pointer;
+	color: var(--text);
+}
+
+nav a:hover {
+	filter: invert(30%);
+}
+
+nav a + a {
+	margin-left: 5px;
+}
+
+.section-container {
+	overflow-y: auto;
+	scroll-behavior: smooth;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	min-height: 600px;
+	scroll-snap-type: y mandatory;
+}
+
+section {
+	flex: 1;
+	min-height: 100%;
+	scroll-snap-align: start;
+}
+
+#section1 {
+	background-color: var(--theme-1);
+}
+#section2 {
+	background-color: var(--theme-2);
+}
+#section3 {
+	background-color: var(--theme-3);
+}
+#section4 {
+	background-color: var(--theme-4);
+}
